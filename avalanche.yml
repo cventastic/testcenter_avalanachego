@@ -1,0 +1,21 @@
+version: '3.1'
+
+services:
+  avalanche:
+    build: ./avalanche/build
+    expose:
+      - "9650"
+      - "9651"
+    ports:
+      - "127.0.0.1:9650:9650"
+      - "9651:9651/tcp"
+      - "9651:9651/udp"
+    volumes:
+      - avalanche:/root/.avalanchego
+      - ./avalanche/configs/chains/C/config.json:/root/.avalanchego/configs/chains/C/config.json
+      - ./avalanche/configs/chains/DFK/config.json:/root/.avalanchego/configs/chains/q2aTwKuyzgs8pynF7UXBZCU7DejbZbZ6EUyHr3JQzYgwNPUPi/config.json
+    command: "/avalanchego/build/avalanchego --http-host="
+    restart: unless-stopped
+
+volumes:
+  avalanche:
